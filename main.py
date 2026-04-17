@@ -30,6 +30,8 @@ def scrape():
 
 scrape()
 # scrape() if button clicked in ui
+# EXAMPLE USAGE: past https://www.scrapethissite.com/pages/simple/
+# current only works on simple sites like that one
 
 
 # later - take info, create subtopics, save under some sort of title if user has requested it in UI - prob an if else
