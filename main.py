@@ -9,23 +9,26 @@
 # pandas! maybe analystics or visualization?
 
 import requests
-from bs4 import BeautifulSoup, soup
+from bs4 import BeautifulSoup
 
 # take URL input from user eg & scrape it yay: 
 
 def scrape():
     
     url = input("Enter URL: ")
-    response = requests.get(url)
+    response = requests.get(str(url))
     soup = BeautifulSoup(response.text, "html.parser")
 
     # beautify it
     title = soup.select_one('h1').text
     text = soup.select_one('p').text
     link = soup.select_one('a').get('href')
-    
 
+    print("Title:", title)
+    print("Text:", text)
+    print("Link:", link)
 
+scrape()
 # scrape() if button clicked in ui
 
 
