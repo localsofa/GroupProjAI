@@ -1,0 +1,2 @@
+# GroupProjAI
+Linguistic Computation Groupwork
