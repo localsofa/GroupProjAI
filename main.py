@@ -13,9 +13,10 @@ from bs4 import BeautifulSoup
 
 # take URL input from user eg & scrape it yay: 
 
-def scrape():
+def scrape(txt):
     
-    url = input("Enter URL: ")
+    #url = input("Enter URL: ")
+    url = txt
     response = requests.get(str(url))
     soup = BeautifulSoup(response.text, "html.parser")
 
@@ -32,6 +33,7 @@ scrape()
 # scrape() if button clicked in ui
 # EXAMPLE USAGE: past https://www.scrapethissite.com/pages/simple/
 # current only works on simple sites like that one
+# ollama usage for the topicalization? or keyword search 
 
 
 # later - take info, create subtopics, save under some sort of title if user has requested it in UI - prob an if else
