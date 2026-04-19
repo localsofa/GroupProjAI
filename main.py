@@ -1,6 +1,7 @@
 # PREQUESITES:
 # pip install requests
 # pip install beautifulsoup4
+# pip install beautifulsoup --> sometimes it's weird abt importing beautifulsoup4 lol
 
 
 # webscraper
