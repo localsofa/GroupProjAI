@@ -27,17 +27,51 @@ def scrape(*args):
         response = requests.get(str(txt))
         soup = BeautifulSoup(response.text, "html.parser")
 
-    # beautify it
-        title = soup.select_one('h1').text
-        text = soup.select_one('p').text
-        link = soup.select_one('a').get('href')
+        # extract title
+        title_elem = soup.find('h1') or soup.find('title')
+        title = title_elem.text.strip() if title_elem else "No title found"
 
+        # find main content area
+        main_content = (soup.find('article') or 
+                       soup.find('main') or 
+                       soup.find('div', class_=lambda x: x and ('content' in x.lower() or 'post' in x.lower() or 'entry' in x.lower())) or
+                       soup.find('div', id=lambda x: x and ('content' in x.lower() or 'post' in x.lower() or 'main' in x.lower())) or
+                       soup.body)
+
+        if main_content:
+            # extract paragraphs (filter out short ones like nav)
+            paragraphs = [p.get_text(strip=True) for p in main_content.find_all('p') if len(p.get_text(strip=True)) > 50]
+            # extract lists
+            lists = [li.get_text(strip=True) for li in main_content.find_all('li') if len(li.get_text(strip=True)) > 5]
+        else:
+            paragraphs = []
+            lists = []
+
+        # print results
         print("Title:", title)
-        print("Text:", text)
-        print("Link:", link)
+        print("\nMain Text:")
+        for para in paragraphs[:5]:  # limit to first 5
+            print(para[:200] + "..." if len(para) > 200 else para)
+        print("\nLists:")
+        for item in lists[:10]:  # limit
+            print("-", item)
+
+        # save to file
+        filename = f"{title.replace('/', '_').replace(' ', '_').replace(':', '_')[:50]}.txt"
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(f"Title: {title}\n\nMain Text:\n")
+            for para in paragraphs:
+                f.write(para + "\n\n")
+            f.write("\nLists:\n")
+            for item in lists:
+                f.write(f"- {item}\n")
+        print(f"\nSaved to {filename}")
     
-    except ValueError:
-        pass
+    except Exception as e:
+        print("Error:", str(e))
+    
+    except Exception as e:
+        print("Error:", str(e))
 
 
 root = Tk()
