@@ -115,7 +115,7 @@ ttk.Button(mainframe, text="Browse", command=choose_dir).grid(column=4, row=5, s
 ttk.Button(mainframe, text="Create Folder", command=create_folder).grid(column=5, row=5, sticky=W)
 
 ttk.Label(mainframe, text="Enter URL").grid(column=3, row=1, sticky=W)
-ttk.Label(mainframe, text="Result").grid(column=3, row=2, sticky=W)
+# ttk.Label(mainframe, text="Result").grid(column=3, row=2, sticky=W)
 
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
