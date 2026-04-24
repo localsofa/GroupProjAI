@@ -2,6 +2,7 @@
 # only for non .exe file
 # create venv
 # pip install beautifulsoup4 requests os
+# testing post merge
 
 # ------ IMPORTS ------ 
 from tkinter import *
