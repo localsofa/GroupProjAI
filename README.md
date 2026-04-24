@@ -1,5 +1,5 @@
-# GroupProjAI
-Linguistic Computation Groupwork: Webscraper
+# Savable Webscraper with UI
+Linguistic Computation Groupwork
 
 # Current Features:
 * working simple UI
