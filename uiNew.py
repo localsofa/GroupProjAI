@@ -1,12 +1,9 @@
-# eventual ui
-# .exe conversion; paste in URL of site? or if we have a set site then just the specific data we want to access
-# log in system? or just have it be hosted locally 
+# ------ SETUP ------ 
+# only for non .exe file
+# create venv
+# pip install beautifulsoup4 requests os
 
-
-# hear me out: user can make files (eg cooking), send beautified scraped notes into that file (eg from cooking websites) for organization
-
-# https://tkdocs.com/
-# test from sophia:
+# ------ IMPORTS ------ 
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog, simpledialog
@@ -15,14 +12,7 @@ import os
 from bs4 import BeautifulSoup
 import requests
 
-#def calculate(*args):
-    #try:
-        #value = float(url.get())
-        #meters.set(round(0.3048 * value, 4))
-    #except ValueError:
-        #pass
-
-# later import this function but it is currently winning the battle so it is here now
+# ------  HELPER FUNCTIONS ------
 def scrape(*args):
     try: 
         txt = url.get()
@@ -58,7 +48,7 @@ def scrape(*args):
         for item in lists[:10]:  # limit
             print("-", item)
 
-        # save to file if user checks off "save" 
+        # save to file if user checked off box
         if save_file.get():
             os.makedirs(save_dir.get(), exist_ok=True)
             filename = f"{title.replace('/', '_').replace(' ', '_').replace(':', '_')[:50]}.txt"
@@ -92,6 +82,8 @@ def create_folder():
         save_dir.set(folder_path)
 
 
+
+# ------ UI ------ 
 root = Tk()
 root.title("URL Scraper")
 
@@ -115,7 +107,6 @@ ttk.Button(mainframe, text="Browse", command=choose_dir).grid(column=4, row=5, s
 ttk.Button(mainframe, text="Create Folder", command=create_folder).grid(column=5, row=5, sticky=W)
 
 ttk.Label(mainframe, text="Enter URL").grid(column=3, row=1, sticky=W)
-# ttk.Label(mainframe, text="Result").grid(column=3, row=2, sticky=W)
 
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
