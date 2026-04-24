@@ -82,7 +82,6 @@ def create_folder():
         save_dir.set(folder_path)
 
 
-
 # ------ UI ------ 
 root = Tk()
 root.title("URL Scraper")
