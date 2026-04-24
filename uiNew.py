@@ -2,6 +2,7 @@
 # only for non .exe file
 # create venv
 # pip install beautifulsoup4 requests os
+# possible thing for sentiment analysis: https://github.com/shabisht/Sentiment-Analysis-API
 
 # ------ IMPORTS ------ 
 from tkinter import *
