@@ -1,5 +1,5 @@
 # Savable Webscraper with UI
-Linguistic Computation Groupwork
+Linguistic Computation Groupwork (It scrapes, it gathers...)
 
 # Current Features:
 * working simple UI
@@ -11,3 +11,4 @@ Linguistic Computation Groupwork
 * summarizer of either a given URL or a specific site
 * executable desktop application with UI (nicer UI at least)
 * maybe a browser extension if enough time
+* add text input box for keyword; summarizes according to keyword (steers focus)
