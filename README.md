@@ -11,3 +11,4 @@ Linguistic Computation Groupwork
 * summarizer of either a given URL or a specific site
 * executable desktop application with UI (nicer UI at least)
 * maybe a browser extension if enough time
+* :3
