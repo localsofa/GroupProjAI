@@ -9,6 +9,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog, simpledialog
 import os
+import ollama
 
 from bs4 import BeautifulSoup
 import requests
@@ -82,7 +83,19 @@ def create_folder():
         os.makedirs(folder_path, exist_ok=True)
         save_dir.set(folder_path)
 
-
+# summarize URL
+def summarize(text):
+    try:
+        response = ollama.chat(
+            model = "llama3.2",
+            messages = [{
+                "role": "user",
+                "content": f"Summarize the following text:\n\n{text}"
+            }]
+        )
+        return response["message"]["content"]
+    except Exception as e:
+        return f"Summarization error: {str(e)}"
 # ------ UI ------ 
 root = Tk()
 root.title("URL Scraper")
