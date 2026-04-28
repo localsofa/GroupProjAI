@@ -50,6 +50,13 @@ def scrape(*args):
         for item in lists[:10]:  # limit
             print("-", item)
 
+        # summarize scraped text with Ollama
+        full_text = "\n".join(paragraphs[:10]) # limit context given to Ollama
+        if full_text:
+            print("\nSummarizing...")
+            summary = summarize(full_text)
+            print("\nSummary:", summary)
+            
         # save to file if user checked off box
         if save_file.get():
             os.makedirs(save_dir.get(), exist_ok=True)
@@ -96,6 +103,7 @@ def summarize(text):
         return response["message"]["content"]
     except Exception as e:
         return f"Summarization error: {str(e)}"
+
 # ------ UI ------ 
 root = Tk()
 root.title("URL Scraper")
@@ -120,6 +128,13 @@ ttk.Button(mainframe, text="Browse", command=choose_dir).grid(column=4, row=5, s
 ttk.Button(mainframe, text="Create Folder", command=create_folder).grid(column=5, row=5, sticky=W)
 
 ttk.Label(mainframe, text="Enter URL").grid(column=3, row=1, sticky=W)
+
+# Text widget
+result_text = Text(mainframe, height = 15, width = 60, wrap = WORD, state = DISABLED)
+result_text.grid(column = 1, row = 6, columnspan = 5, sticky = (W, E), pady = 10)
+scrollbar = ttk.Scrollbar(mainframe, orient = VERTICAL, command = result_text.yview)
+scrollbar.grid(column = 6, row = 6, sticky = (N, S))
+result_text.configure(yscrollcommand = scrollbar.set)
 
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)

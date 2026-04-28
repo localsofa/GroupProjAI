@@ -2,7 +2,7 @@
 # pip install requests
 # pip install beautifulsoup4
 # pip install beautifulsoup --> sometimes it's weird abt importing beautifulsoup4 lol
-
+# pip install ollama
 
 # webscraper
 # request handler
