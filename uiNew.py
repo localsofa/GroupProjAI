@@ -94,7 +94,7 @@ def create_folder():
 def summarize(text):
     try:
         response = ollama.chat(
-            model = "llama3.2",
+            model = "llama3.2:1b",
             messages = [{
                 "role": "user",
                 "content": f"Summarize the following text:\n\n{text}"
