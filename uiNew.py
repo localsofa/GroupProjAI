@@ -56,6 +56,11 @@ def scrape(*args):
             print("\nSummarizing...")
             summary = summarize(full_text)
             print("\nSummary:", summary)
+            # push summary into text widget
+            result_text.config(state = NORMAL)
+            result_text.delete(1.0, END)
+            result_text.insert(END, f"Title: {title}\n\nSummary:\n{summary}")
+            result_text.config(state = DISABLED)
             
         # save to file if user checked off box
         if save_file.get():
