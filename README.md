@@ -6,7 +6,7 @@ Linguistic Computation Groupwork (It scrapes, it gathers...)
 * user adds URL
 * upon button click -> scrapes given URL for title, main content, and list items
 * user can choose to save file to specific directory & create folders within in UI
-* summarizer of either a given URL or a specific site
+* summarizer of a given URL
 
 # To Add / Brainstorming: 
 * executable desktop application with UI (nicer UI at least)
