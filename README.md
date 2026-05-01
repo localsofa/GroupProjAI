@@ -7,8 +7,9 @@ Linguistic Computation Groupwork (It scrapes, it gathers...)
 * upon button click -> scrapes given URL for title, main content, and list items
 * user can choose to save file to specific directory & create folders within in UI
 * summarizer of a given URL
+* user can click "encode" to (shocker) encode summary
 
 # To Add / Brainstorming: 
-* executable desktop application with UI (nicer UI at least)
+* executable desktop application with UI (nicer UI at least) did this!! [SH]
 * maybe a browser extension if enough time
 * add text input box for keyword; summarizes according to keyword (steers focus)
