@@ -4,6 +4,8 @@
 # pip install beautifulsoup4 requests os
 # pip install ollama
 # ollama pull llama3.2:1b
+# pip install customtkinter
+
 # ceaser cipher encoder and decoder for funsies --> will add file upload for decoding later
 
 # ------ IMPORTS ------ 
