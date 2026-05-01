@@ -5,9 +5,12 @@
 # possible thing for sentiment analysis: https://github.com/shabisht/Sentiment-Analysis-API
 
 # ------ IMPORTS ------ 
-from tkinter import *
-from tkinter import ttk
-from tkinter import filedialog, simpledialog
+#from tkinter import *
+#from tkinter import ttk
+#from tkinter import filedialog, simpledialog
+from customtkinter import *
+from customtkinter import filedialog
+import customtkinter as ctk
 import os
 import ollama
 
@@ -89,7 +92,7 @@ def choose_dir():
 
 # option to create folder
 def create_folder():
-    name = simpledialog.askstring("Create Folder", "Enter folder name:")
+    name = ctk.CTkInputDialog("Create Folder", "Enter folder name:")
     if name:
         folder_path = os.path.join(save_dir.get(), name)
         os.makedirs(folder_path, exist_ok=True)
@@ -110,35 +113,43 @@ def summarize(text):
         return f"Summarization error: {str(e)}"
 
 # ------ UI ------ 
-root = Tk()
+root = CTk()
 root.title("URL Scraper")
 
-mainframe = ttk.Frame(root, padding=(3, 3, 12, 12))
+mainframe = ctk.CTkFrame(root)
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+
+set_appearance_mode("dark") 
 
 url = StringVar()
 save_file = BooleanVar()
 save_dir = StringVar(value="scraped_files")
-url_entry = ttk.Entry(mainframe, width=7, textvariable=url)
-url_entry.grid(column=2, row=1, sticky=(W, E))
+url_entry = ctk.CTkEntry(mainframe, width=7, textvariable=url)
+url_entry.grid(column=3, row=1, sticky=(W, E))
 
-ttk.Button(mainframe, text="Scrape", command=scrape).grid(column=3, row=3, sticky=W)
+ctk.CTkButton(mainframe, text="Scrape", command=scrape, corner_radius=32, fg_color="#457a00",
+                hover_color="#b175ff", border_color="#ffffff",
+                border_width=2).grid(column=3, row=3, sticky=W)
 
-ttk.Checkbutton(mainframe, text="Save to file", variable=save_file).grid(column=3, row=4, sticky=W)
+ctk.CTkCheckBox(mainframe, text="Save to file", variable=save_file).grid(column=3, row=4, sticky=W)
 
-ttk.Label(mainframe, text="Save Folder:").grid(column=1, row=5, sticky=W)
-save_dir_entry = ttk.Entry(mainframe, textvariable=save_dir)
+ctk.CTkLabel(mainframe, text="Save Folder:").grid(column=1, row=5, sticky=W)
+save_dir_entry = ctk.CTkEntry(mainframe, textvariable=save_dir)
 save_dir_entry.grid(column=2, row=5, columnspan=2, sticky=(W, E))
-ttk.Button(mainframe, text="Browse", command=choose_dir).grid(column=4, row=5, sticky=W)
-ttk.Button(mainframe, text="Create Folder", command=create_folder).grid(column=5, row=5, sticky=W)
+ctk.CTkButton(mainframe, text="Browse", command=choose_dir, corner_radius=32, fg_color="#457a00",
+                hover_color="#b175ff", border_color="#ffffff",
+                border_width=2).grid(column=3, row=6, sticky=W)
+ctk.CTkButton(mainframe, text="Create Folder", command=create_folder, corner_radius=32, fg_color="#457a00",
+                hover_color="#b175ff", border_color="#ffffff",
+                border_width=2).grid(column=4, row=6, sticky=W)
 
-ttk.Label(mainframe, text="Enter URL").grid(column=3, row=1, sticky=W)
+ctk.CTkLabel(mainframe, text="Enter URL").grid(column=4, row=1, sticky=W)
 
 # Text widget
-result_text = Text(mainframe, height = 15, width = 60, wrap = WORD, state = DISABLED)
-result_text.grid(column = 1, row = 6, columnspan = 5, sticky = (W, E), pady = 10)
-scrollbar = ttk.Scrollbar(mainframe, orient = VERTICAL, command = result_text.yview)
-scrollbar.grid(column = 6, row = 6, sticky = (N, S))
+result_text = ctk.CTkTextbox(mainframe, height = 30, width = 60, wrap = WORD, state = DISABLED)
+result_text.grid(column = 1, row = 7, columnspan = 5, rowspan = 5, sticky = (W, E), pady = 10)
+scrollbar = ctk.CTkScrollbar(mainframe, orientation = VERTICAL, command = result_text.yview)
+scrollbar.grid(column = 7, row = 7, sticky = (N, S))
 result_text.configure(yscrollcommand = scrollbar.set)
 
 root.columnconfigure(0, weight=1)
