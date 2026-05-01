@@ -2,7 +2,9 @@
 # only for non .exe file
 # create venv
 # pip install beautifulsoup4 requests os
-# possible thing for sentiment analysis: https://github.com/shabisht/Sentiment-Analysis-API
+# pip install ollama
+# ollama pull llama3.2:1b
+# ceaser cipher encoder and decoder for funsies --> will add file upload for decoding later
 
 # ------ IMPORTS ------ 
 from tkinter import *
@@ -75,6 +77,14 @@ def scrape(*args):
                 for item in lists:
                     f.write(f"- {item}\n")
             print(f"\nSaved to {filepath}")
+
+        if encode.get():
+            encoded_summary = cipher(summary, 3)  # caesar cipher with shift of 3
+            print("\nEncoded Summary:", encoded_summary)
+            result_text.config(state = NORMAL)
+            result_text.delete(1.0, END)
+            result_text.insert(END, f"Title: {title}\n\nEncoded Summary:\n{encoded_summary}")
+            result_text.config(state = DISABLED)
     
     except Exception as e:
         print("Error:", str(e))
@@ -108,6 +118,17 @@ def summarize(text):
         return response["message"]["content"]
     except Exception as e:
         return f"Summarization error: {str(e)}"
+    
+def cipher(response, shift):
+    result = ""
+    for char in response:
+        if char.isalpha():
+            shift_amount = shift % 26
+            base = ord('A') if char.isupper() else ord('a')
+            result += chr((ord(char) - base + shift_amount) % 26 + base)
+        else:
+            result += char
+    return result
 
 # ------ UI ------ 
 root = Tk()
@@ -118,6 +139,7 @@ mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
 url = StringVar()
 save_file = BooleanVar()
+encode = BooleanVar()
 save_dir = StringVar(value="scraped_files")
 url_entry = ttk.Entry(mainframe, width=7, textvariable=url)
 url_entry.grid(column=2, row=1, sticky=(W, E))
@@ -125,6 +147,7 @@ url_entry.grid(column=2, row=1, sticky=(W, E))
 ttk.Button(mainframe, text="Scrape", command=scrape).grid(column=3, row=3, sticky=W)
 
 ttk.Checkbutton(mainframe, text="Save to file", variable=save_file).grid(column=3, row=4, sticky=W)
+ttk.Checkbutton(mainframe, text="Encode", variable=encode).grid(column=4, row=4, sticky=W)
 
 ttk.Label(mainframe, text="Save Folder:").grid(column=1, row=5, sticky=W)
 save_dir_entry = ttk.Entry(mainframe, textvariable=save_dir)
