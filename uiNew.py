@@ -60,10 +60,10 @@ def scrape(*args):
             summary = summarize(full_text)
             print("\nSummary:", summary)
             # push summary into text widget
-            result_text.config(state = NORMAL)
+            result_text.configure(state = NORMAL)
             result_text.delete(1.0, END)
             result_text.insert(END, f"Title: {title}\n\nSummary:\n{summary}")
-            result_text.config(state = DISABLED)
+            result_text.configure(state = DISABLED)
             
         # save to file if user checked off box
         if save_file.get():
@@ -146,8 +146,8 @@ ctk.CTkButton(mainframe, text="Create Folder", command=create_folder, corner_rad
 ctk.CTkLabel(mainframe, text="Enter URL").grid(column=4, row=1, sticky=W)
 
 # Text widget
-result_text = ctk.CTkTextbox(mainframe, height = 30, width = 60, wrap = WORD, state = DISABLED)
-result_text.grid(column = 1, row = 7, columnspan = 5, rowspan = 5, sticky = (W, E), pady = 10)
+result_text = ctk.CTkTextbox(mainframe, height = 300, width = 60, wrap = WORD, state = DISABLED)
+result_text.grid(column = 1, row = 7, columnspan = 5, rowspan = 10, sticky = (W, E), pady = 10)
 scrollbar = ctk.CTkScrollbar(mainframe, orientation = VERTICAL, command = result_text.yview)
 scrollbar.grid(column = 7, row = 7, sticky = (N, S))
 result_text.configure(yscrollcommand = scrollbar.set)
