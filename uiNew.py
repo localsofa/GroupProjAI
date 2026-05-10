@@ -24,7 +24,9 @@ import requests
 # ------  HELPER FUNCTIONS ------
 def scrape(*args):
     try: 
-        txt = url.get()
+        txt = url.get().strip()
+        if not txt.startswith("http://") and not txt.startswith("https://"):
+            txt = "https://" + txt
         response = requests.get(str(txt))
         soup = BeautifulSoup(response.text, "html.parser")
 
