@@ -61,7 +61,7 @@ def scrape(*args):
         full_text = "\n".join(paragraphs[:10]) # limit context given to Ollama
         if full_text:
             print("\nSummarizing...")
-            summary = summarize(full_text)
+            summary = summarize(full_text, keyword.get())
             print("\nSummary:", summary)
             # push summary into text widget
             result_text.configure(state = NORMAL)
@@ -111,13 +111,18 @@ def create_folder():
         save_dir.set(folder_path)
 
 # summarize URL
-def summarize(text):
+def summarize(text, keyword = None):
+    if keyword and keyword.strip():
+        prompt = f"Summarize the following text, with regards to anything related to '{keyword.strip()}':\n\n{text}"
+    else:
+        prompt = f"Summarize the following text:\n\n{text}"
+    
     try:
         response = ollama.chat(
             model = "llama3.2:1b",
             messages = [{
                 "role": "user",
-                "content": f"Summarize the following text:\n\n{text}"
+                "content": prompt
             }]
         )
         return response["message"]["content"]
@@ -144,12 +149,17 @@ mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
 set_appearance_mode("dark") 
 
+keyword = StringVar()
 url = StringVar()
 save_file = BooleanVar()
 encode = BooleanVar()
 save_dir = StringVar(value="scraped_files")
 url_entry = ctk.CTkEntry(mainframe, width=7, textvariable=url)
 url_entry.grid(column=3, row=1, sticky=(W, E))
+
+ctk.CTkLabel(mainframe, text = "Keyword (optional):").grid(column = 1, row = 2, sticky = W)
+keyword_entry = ctk.CTkEntry(mainframe, width = 200, textvariable = keyword)
+keyword_entry.grid(column = 2, row = 2, columnspan = 2, sticky = (W, E))
 
 ctk.CTkButton(mainframe, text="Scrape", command=scrape, corner_radius=32, fg_color="#457a00",
                 hover_color="#b175ff", border_color="#ffffff",
